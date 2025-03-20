@@ -1,12 +1,16 @@
 package com.metacoding.storev1.store;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller // IoC(제어의 역전) = HashSet
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller // IoC(제어의 역전전) => HashSet
 public class StoreController {
 
     private StoreService storeService;
@@ -16,13 +20,10 @@ public class StoreController {
     }
 
     @GetMapping("/")
-    public String list() {
+    public String list(HttpServletRequest request) { // MVC
+        List<Store> storeList = storeService.상품목록();
+        request.setAttribute("models", storeList);
         return "store/list";
-    }
-
-    @GetMapping("/store/save-form")
-    public String saveForm() {
-        return "store/save-form";
     }
 
     @GetMapping("/store/{id}")
@@ -40,12 +41,14 @@ public class StoreController {
         return "redirect:/";
     }
 
+    @GetMapping("/store/save-form")
+    public String saveForm() {
+        return "store/save-form";
+    }
+
     @PostMapping("/store/save")
-    public String save(@RequestParam("name") String name, @RequestParam("stock") int stock, @RequestParam("price") int price) {
-        // System.out.println(name);
-        // System.out.println(stock);
-        // System.out.println(price);
-        // 출력해서 디버깅을 해볼 수 있으니 한 번 확인해보기
+    public String save(@RequestParam("name") String name, @RequestParam("stock") int stock,
+            @RequestParam("price") int price) {
 
         storeService.상품등록(name, stock, price);
 
