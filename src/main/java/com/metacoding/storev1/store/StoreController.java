@@ -27,7 +27,9 @@ public class StoreController {
     }
 
     @GetMapping("/store/{id}")
-    public String detail(@PathVariable("id") int id) {
+    public String detail(@PathVariable("id") int id, HttpServletRequest request) {
+        Store store = storeService.상세보기(id);
+        request.setAttribute("model", store);
         return "store/detail";
     }
 
@@ -47,8 +49,7 @@ public class StoreController {
     }
 
     @PostMapping("/store/save")
-    public String save(@RequestParam("name") String name, @RequestParam("stock") int stock,
-            @RequestParam("price") int price) {
+    public String save(@RequestParam("name") String name, @RequestParam("stock") int stock, @RequestParam("price") int price) {
 
         storeService.상품등록(name, stock, price);
 
