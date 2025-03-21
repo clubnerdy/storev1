@@ -2,8 +2,11 @@ package com.metacoding.storev1.log;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.metacoding.storev1.log.LogResponse.ListPage;
 
+@Service
 public class LogService {
 
     private LogRepository logRepository;
