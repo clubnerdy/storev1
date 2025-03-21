@@ -34,13 +34,27 @@ public class StoreRepository {
         // 조건 : 오브젝트 매핑은 @Entity가 붙어야지만 가능하다. (디폴트 생성자를 호출)
         Query query = em.createNativeQuery("select * from store_tb where id = ?", Store.class);
         query.setParameter(1, id);
-        return (Store) query.getSingleResult();
+        
+        try {
+            return (Store) query.getSingleResult();
+        }catch (Exception e) {
+            return null;
+        }
     }
 
     // 1번 : board 프로젝트의 BoardRepository 참고하세요
     public void deleteByid(int id) {
         Query query = em.createNativeQuery("delete from store_tb where id = ?");
         query.setParameter(1, id);
+        query.executeUpdate();
+    }
+
+    public void updateById(int id, String name, String stock, String price) {
+        Query query = em.createNativeQuery("update store_tb set name = ?, stock = ?, price = ? where id = ?");
+        query.setParameter(1, name);
+        query.setParameter(2, stock);
+        query.setParameter(3, price);
+        query.setParameter(4, id);
         query.executeUpdate();
     }
 }
