@@ -1,5 +1,19 @@
 package com.metacoding.storev1.log;
 
+import java.util.List;
+
+import com.metacoding.storev1.log.LogResponse.ListPage;
+
 public class LogService {
+
+    private LogRepository logRepository;
+
+    public LogService(LogRepository logRepository) {
+        this.logRepository = logRepository;
+    }
+
+    public List<ListPage> 구매목록() {
+        return logRepository.findAllJoinStore();
+    }
     
 }
