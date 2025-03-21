@@ -38,8 +38,10 @@ public class StoreController {
         return "store/update-form";
     }
 
+    // 2번: boar 프로젝트의 BoardController 참고
     @PostMapping("/store/{id}/delete")
     public String delete(@PathVariable("id") int id) {
+        storeService.상품삭제(id);
         return "redirect:/";
     }
 

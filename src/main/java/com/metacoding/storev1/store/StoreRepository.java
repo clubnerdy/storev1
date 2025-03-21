@@ -36,4 +36,11 @@ public class StoreRepository {
         query.setParameter(1, id);
         return (Store) query.getSingleResult();
     }
+
+    // 1번 : board 프로젝트의 BoardRepository 참고하세요
+    public void deleteByid(int id) {
+        Query query = em.createNativeQuery("delete from store_tb where id = ?");
+        query.setParameter(1, id);
+        query.executeUpdate();
+    }
 }
