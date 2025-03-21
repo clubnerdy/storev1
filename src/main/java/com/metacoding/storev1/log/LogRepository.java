@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.metacoding.storev1.store.Store;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
@@ -29,6 +31,15 @@ public class LogRepository {
             logList.add(log);
         }
         return logList;
+    }
+
+    public void save(Store storeId, int qty, int totalPrice, String buyer) {
+        Query query = em.createNativeQuery("insert into log_tb(store_id, qty, total_price, buyer) values(?,?,?,?)");
+        query.setParameter(1, storeId);
+        query.setParameter(2, qty);
+        query.setParameter(3, totalPrice);
+        query.setParameter(4, buyer);
+        query.executeUpdate();
     }
     
 }
