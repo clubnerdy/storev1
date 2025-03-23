@@ -21,6 +21,8 @@ public class StoreService {
         if (store == null) {
             throw new RuntimeException("상품이 존재하지 않습니다.");
         }
+        // ✅  누락된 부분 수정
+        storeRepository.deleteByid(id); // write (DML = insert, delete, update)
     }
 
     @Transactional
